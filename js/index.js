@@ -2,14 +2,13 @@ let modal;
 let galleryEl;
 let currImage;
 
-// request from flickr
 function makeRequest(url, cb) {
   let request = new XMLHttpRequest();
   request.open('GET', url, true);
   request.send();
   request.onreadystatechange = function() {
     if(request.readyState == 4 && request.status == 200) {
-      cb(JSON.parse(request.responseText).items);
+      cb(request.responseText);
     }
   }
 }
@@ -20,6 +19,7 @@ function getImages(query) {
 }
 
 function templateImages(data) {
+  data = JSON.parse(data).items;
   let button;
   for (let i = 0; i < data.length; i++) {
     button = document.createElement('button');
@@ -28,17 +28,37 @@ function templateImages(data) {
     button.innerHTML = `<img src="${data[i].link}" alt="${data[i].title}" title="${data[i].title}">`;
     galleryEl.appendChild(button);
   }
+
+  galleryItems = galleryEl.querySelector('.gallery__item');
 }
 
 function templateModal(title, src) {
-  if (!modal.isOpen) {
-    modal.openModal();
-  }
-
   modal.modalEl.querySelector('.modal__heading').innerHTML = title;
   let img = modal.modalEl.querySelector('.modal__img');
   img.src = src;
   img.alt = title;
+}
+
+function nextImage() {
+  let nextImage;
+  if (!currImage.parentNode.nextElementSibling) {
+    nextImage = galleryEl.firstElementChild.firstElementChild;
+  } else {
+    nextImage = currImage.parentNode.nextElementSibling.firstElementChild;
+  }
+  templateModal(nextImage.title, nextImage.src);
+  currImage = nextImage;
+}
+
+function previousImage() {
+  let prevImage;
+  if (!currImage.parentNode.previousElementSibling) {
+    prevImage = galleryEl.lastElementChild.firstElementChild;
+  } else {
+    prevImage = currImage.parentNode.previousElementSibling.firstElementChild;
+  }
+  templateModal(prevImage.title, prevImage.src);
+  currImage = prevImage;
 }
 
 // use event delegation to catch clicks on images
@@ -49,6 +69,10 @@ function triggerModal(e) {
       let imageEl = target.querySelector('img');
       let title = imageEl.getAttribute('title');
       let src = imageEl.getAttribute('src');
+      currImage = imageEl;
+      if (!modal.isOpen) {
+        modal.openModal();
+      }
       templateModal(title, src);
     }
     target = target.parentNode;
@@ -63,6 +87,17 @@ function init() {
 
   modal = new Modal(modalEl, modalOverlayEl, modalCloseEl);
   galleryEl.addEventListener('click', triggerModal);
+  modalEl.querySelector('.modal__cta--right').addEventListener('click', nextImage);
+  modalEl.querySelector('.modal__cta--left').addEventListener('click', previousImage);
+  document.addEventListener('keydown', function(e) {
+    if (modal.isOpen) {
+      if (e.keyCode === 39) {
+        nextImage();
+      } else if (e.keyCode === 37) {
+        previousImage();
+      }
+    }
+  });
 
   getImages('cat');
 }

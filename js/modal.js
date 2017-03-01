@@ -9,7 +9,7 @@ function Modal(modalEl, overlayEl, cancelEl) {
   let self = this;
   document.addEventListener('keydown', function(e) {
     // close modal on escape
-    if (self.isOpen && e.keyCode == 27) {
+    if (self.isOpen && e.keyCode === 27) {
       self.closeModal();
     }
   });
