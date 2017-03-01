@@ -1,0 +1,39 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  &__overlay {
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.8);
+  }
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &__img {
+    display: block;
+  }
+  &__cta {
+    position: absolute;
+    bottom: 0;
+    &--right {
+      right: 0;
+    }
+    &--left {
+      left: 0;
+    }
+  }
+}
+
+.modal--lightbox {
+  text-align: center; 
+  color: rgba(255,255,255,.8);
+}

@@ -1,0 +1,29 @@
+.gallery {
+  &__item {
+    background-color: rgba(0,0,0,.7);
+    width: 32%;
+    height: 270px;
+    margin-right: 2%;
+    margin-bottom: 20px;
+    padding: 0;
+    float: left;
+    cursor: pointer;
+    transition: opacity .2s ease-out;
+    border: 1px solid #eee;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    &:nth-of-type(3n) {
+      margin-right: 0;
+    }
+    &:hover {
+      opacity: .8;
+    }
+  }
+} 
