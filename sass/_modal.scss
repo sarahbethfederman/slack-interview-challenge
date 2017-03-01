@@ -17,13 +17,29 @@
     position: absolute;
     top: 0;
     right: 0;
+    appearance: none;
+    color: #FFF;
+    border: none;
+    font-size: 22px;
+    padding: 0;
+    background-color: transparent;
   }
   &__img {
     display: block;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 60px;
   }
   &__cta {
     position: absolute;
     bottom: 0;
+    appearance: none;
+    border: 1px solid #FFF;
+    color: #FFF;
+    background-color: transparent;
+    border-radius: 3px;
+    font-size: 16px;
     &--right {
       right: 0;
     }

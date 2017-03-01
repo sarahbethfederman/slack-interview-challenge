@@ -2,33 +2,25 @@ function Modal(modalEl, overlayEl, cancelEl) {
   this.isOpen = false;
   this.modalEl = modalEl;
   this.overlayEl = overlayEl;
+  this.lastFocus;
 
   overlayEl.addEventListener('click', () => this.closeModal());
   cancelEl.addEventListener('click', () => this.closeModal());
 } 
 
-Modal.prototype.toggleModal = function() {
-  // a11y
-  this.modalEl.setAttribute('ariaHidden', !isOpen);
-  this.overlayEl.setAttribute('ariaHidden', !isOpen);
-  // toggle display
-  this.modalEl.classList.toggle('hidden');
-  this.overlayEl.classList.toggle('hidden');
-
-  this.isOpen = !this.isOpen;
-};
-
 Modal.prototype.closeModal = function(e, cb) {
   // a11y
-  this.modalEl.setAttribute('ariaHidden', 'true');
+  this.modalEl.setAttribute('aria-hidden', 'true');
   this.modalEl.setAttribute('tabindex', '-1');
-  this.overlayEl.setAttribute('ariaHidden', 'true');
+  this.overlayEl.setAttribute('aria-hidden', 'true');
+
   // toggle display
   this.modalEl.classList.add('hidden');
   this.overlayEl.classList.add('hidden');
 
   this.isOpen = false;
-
+  this.lastFocus.focus();
+  
   if (cb) {
     cb();
   }
@@ -36,10 +28,13 @@ Modal.prototype.closeModal = function(e, cb) {
 
 Modal.prototype.openModal = function(e, cb) {
   // a11y
-  this.modalEl.setAttribute('ariaHidden', 'false');
-  this.modalEl.focus();
+  this.lastFocus = document.activeElement;
+  this.modalEl.setAttribute('aria-hidden', 'false');
+  this.modalEl.setAttribute('tabindex', '0');
+  this.modalEl.children[0].focus();
+
   // TODO: focus trap & escape
-  this.overlayEl.setAttribute('ariaHidden', 'false');
+  this.overlayEl.setAttribute('aria-hidden', 'false');
   this.modalEl.classList.remove('hidden');
   this.overlayEl.classList.remove('hidden');
 

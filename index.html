@@ -7,9 +7,9 @@
   </head>
   <body>
     <main class="container">
-      <aside class="modal modal--lightbox hidden" aria-hidden="true" tabindex="-1">
-        <button class="modal__close">X</button>
-        <h1 class="modal__heading">Photo Title</h1>
+      <aside class="modal modal--lightbox hidden" aria-hidden="true" tabindex="-1" role="dialog" aria-describedby="modal-title">
+        <button class="modal__close">&#x2715;</button>
+        <h1 id="modal-title" class="modal__heading">Photo Title</h1>
         <img class="modal__img" src="#" alt="#">
         <button class="modal__cta modal__cta--left" type="button">Previous</button>
         <button class="modal__cta modal__cta--right" type="button">Next</button>
@@ -18,14 +18,6 @@
       <div class="modal__overlay hidden" aria-hidden="true" tabindex="-1"></div>
 
       <section class="gallery">
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=351%C3%97151&w=350&h=150" alt="#" title="hi"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=352%C3%97152&w=350&h=381" alt="#" title="bye"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=353%C3%97153&w=350&h=172" alt="#" title="#"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=354%C3%97154&w=200&h=153" alt="#" title="#"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=355%C3%97155&w=350&h=154" alt="#" title="#"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=356%C3%97156&w=350&h=155" alt="#" title="#"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=357%C3%97157&w=350&h=156" alt="#" title="#"></button>
-        <button class="gallery__item" type="button"><img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=358%C3%97158&w=350&h=157" alt="#" title="#"></button>
       </section>
     </main>
 
