@@ -33,6 +33,7 @@ Modal.prototype.closeModal = function(e, cb) {
   this.overlayEl.classList.add('hidden');
 
   this.isOpen = false;
+  // refocus on what we were on before
   this.lastFocus.focus();
   
   if (cb) {
@@ -45,13 +46,11 @@ Modal.prototype.openModal = function(e, cb) {
   this.lastFocus = document.activeElement;
   this.modalEl.setAttribute('aria-hidden', 'false');
   this.modalEl.setAttribute('tabindex', 0);
+  this.overlayEl.setAttribute('aria-hidden', 'false');
+  // focus on our modal
   setTimeout(() => { 
       this.modalEl.focus();
   }, 0); 
-  
-
-  // TODO: focus trap & escape
-  this.overlayEl.setAttribute('aria-hidden', 'false');
   this.modalEl.classList.remove('hidden');
   this.overlayEl.classList.remove('hidden');
 

@@ -86,10 +86,12 @@ function init() {
   let modalCloseEl = modalEl.querySelector('.modal__close');
 
   modal = new Modal(modalEl, modalOverlayEl, modalCloseEl);
+  
   galleryEl.addEventListener('click', triggerModal);
   modalEl.querySelector('.modal__cta--right').addEventListener('click', nextImage);
   modalEl.querySelector('.modal__cta--left').addEventListener('click', previousImage);
   document.addEventListener('keydown', function(e) {
+    // keyboard navigation
     if (modal.isOpen) {
       if (e.keyCode === 39) {
         nextImage();
@@ -99,7 +101,7 @@ function init() {
     }
   });
 
-  getImages('cat');
+  getImages('kitten');
 }
 
 document.addEventListener('DOMContentLoaded', init);
