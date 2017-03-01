@@ -31,7 +31,7 @@ Modal.prototype.openModal = function(e, cb) {
   this.lastFocus = document.activeElement;
   this.modalEl.setAttribute('aria-hidden', 'false');
   this.modalEl.setAttribute('tabindex', '0');
-  this.modalEl.children[0].focus();
+  this.modalEl.firstElementChild.focus();
 
   // TODO: focus trap & escape
   this.overlayEl.setAttribute('aria-hidden', 'false');
