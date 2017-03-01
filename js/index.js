@@ -1,5 +1,6 @@
 let modal; 
 let galleryEl;
+let currImage;
 
 // request from flickr
 function makeRequest(url, cb) {
@@ -19,7 +20,6 @@ function getImages(query) {
 }
 
 function templateImages(data) {
-  console.log(data);
   let button;
   for (let i = 0; i < data.length; i++) {
     button = document.createElement('button');
@@ -28,7 +28,6 @@ function templateImages(data) {
     button.innerHTML = `<img src="${data[i].link}" alt="${data[i].title}" title="${data[i].title}">`;
     galleryEl.appendChild(button);
   }
-  //galleryEl.appendChild(button);
 }
 
 function templateModal(title, src) {
@@ -42,7 +41,7 @@ function templateModal(title, src) {
   img.alt = title;
 }
 
-// use event delegation to catch clicks on tiles
+// use event delegation to catch clicks on images
 function triggerModal(e) {
   let target = e.target;
   while (target !== e.currentTarget) {

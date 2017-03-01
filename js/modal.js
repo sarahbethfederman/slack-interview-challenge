@@ -6,12 +6,26 @@ function Modal(modalEl, overlayEl, cancelEl) {
 
   overlayEl.addEventListener('click', () => this.closeModal());
   cancelEl.addEventListener('click', () => this.closeModal());
+  let self = this;
+  document.addEventListener('keydown', function(e) {
+    // close modal on escape
+    if (self.isOpen && e.keyCode == 27) {
+      self.closeModal();
+    }
+  });
+  document.addEventListener('focus', function(e) {
+    // focus trap
+    if (self.isOpen && !self.modalEl.contains(e.target)) {
+      e.stopPropagation();
+      self.modalEl.focus();
+    }
+  }, true);
 } 
 
 Modal.prototype.closeModal = function(e, cb) {
   // a11y
   this.modalEl.setAttribute('aria-hidden', 'true');
-  this.modalEl.setAttribute('tabindex', '-1');
+  this.modalEl.setAttribute('tabindex', -1);
   this.overlayEl.setAttribute('aria-hidden', 'true');
 
   // toggle display
@@ -30,8 +44,11 @@ Modal.prototype.openModal = function(e, cb) {
   // a11y
   this.lastFocus = document.activeElement;
   this.modalEl.setAttribute('aria-hidden', 'false');
-  this.modalEl.setAttribute('tabindex', '0');
-  this.modalEl.firstElementChild.focus();
+  this.modalEl.setAttribute('tabindex', 0);
+  setTimeout(() => { 
+      this.modalEl.focus();
+  }, 0); 
+  
 
   // TODO: focus trap & escape
   this.overlayEl.setAttribute('aria-hidden', 'false');
